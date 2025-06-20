@@ -22,7 +22,7 @@ def load_attack_and_target_models(args):
     return attackLM, targetLM
 
 # def load_indiv_model(model_name, local = False, use_jailbreakbench=True):
-def load_indiv_model(model_name, local = False, use_jailbreakbench=False):
+def load_indiv_model(model_name, local = True, use_jailbreakbench=False):
     if use_jailbreakbench:
         if local:
             from jailbreakbench import LLMvLLM
@@ -33,7 +33,38 @@ def load_indiv_model(model_name, local = False, use_jailbreakbench=False):
             lm = LLMLiteLLM(model_name= model_name, api_key = api_key)
     else:
         if local:
-            raise NotImplementedError
+            # raise NotImplementedError
+            # ✅ 加上这个分支：支持本地 HF 模型加载
+            class LocalHFWrapper:
+                def __init__(self, model_name):
+                    from config import QWEN_PATH  # 确保你已经在 config.py 里写了这个路径
+                    self.model = AutoModelForCausalLM.from_pretrained(
+                        QWEN_PATH, torch_dtype=torch.float16, device_map="auto"
+                    )
+                    self.tokenizer = AutoTokenizer.from_pretrained(QWEN_PATH, use_fast=False)
+                    self.post_message = "<|endoftext|>"
+                    self.use_open_source_model = False
+
+                def batched_generate(self, conversations, max_n_tokens, temperature, top_p, extra_eos_tokens=[]):
+                    outputs = []
+                    for conv in conversations:
+                        input_text = self.tokenizer.apply_chat_template(conv, tokenize=False,
+                                                                        add_generation_prompt=True)
+                        inputs = self.tokenizer(input_text, return_tensors="pt").to(self.model.device)
+                        output = self.model.generate(
+                            **inputs,
+                            max_new_tokens=max_n_tokens,
+                            do_sample=True,
+                            temperature=temperature,
+                            top_p=top_p,
+                            eos_token_id=self.tokenizer.convert_tokens_to_ids(
+                                extra_eos_tokens) if extra_eos_tokens else None
+                        )
+                        decoded = self.tokenizer.decode(output[0], skip_special_tokens=True)
+                        outputs.append(decoded)
+                    return outputs
+
+            return LocalHFWrapper(model_name)
         else:
             lm = APILiteLLM(model_name)
     return lm
