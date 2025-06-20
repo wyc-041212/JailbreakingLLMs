@@ -18,6 +18,7 @@ def load_attack_and_target_models(args):
                         category = args.category,
                         max_n_tokens = args.target_max_n_tokens,
                         evaluate_locally = args.evaluate_locally,
+                        use_jailbreakbench=args.use_jailbreakbench,
                         phase = args.jailbreakbench_phase
                         )
     
