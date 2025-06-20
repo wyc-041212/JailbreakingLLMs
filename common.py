@@ -78,6 +78,8 @@ def initialize_conversations(n_streams: int, goal: str, target_str: str, attacke
 
 def get_api_key(model):
     environ_var = API_KEY_NAMES[model]
+    if environ_var is None:
+        return None
     try:
         return os.environ[environ_var]  
     except KeyError:
