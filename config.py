@@ -1,6 +1,8 @@
 from enum import Enum
 VICUNA_PATH = "/home/pchao/vicuna-13b-v1.5"
 LLAMA_PATH = "/home/pchao/Llama-2-7b-chat-hf"
+QWEN_PATH = "/home/comp/f2256768/JBShield/models/Qwen2.5-7B-Instruct"
+DEEPSEEK_PATH = "/home/comp/f2256768/JBShield/models/DeepSeek-R1-Distill-Qwen-7B"
 
 ATTACK_TEMP = 1
 TARGET_TEMP = 0
@@ -18,6 +20,8 @@ class Model(Enum):
     claude_2 = "claude-2.1"
     gemini = "gemini-pro"
     mixtral = "mixtral"
+    qwen = "qwen-2.5-7b-instruct"
+    deepseek = "deepseek-r1-distill-qwen-7b"
 
 MODEL_NAMES = [model.value for model in Model]
 
@@ -25,7 +29,9 @@ MODEL_NAMES = [model.value for model in Model]
 HF_MODEL_NAMES: dict[Model, str] = {
     Model.llama_2: "meta-llama/Llama-2-7b-chat-hf",
     Model.vicuna: "lmsys/vicuna-13b-v1.5",
-    Model.mixtral: "mistralai/Mixtral-8x7B-Instruct-v0.1"
+    Model.mixtral: "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    Model.qwen: "Qwen/Qwen2.5-7B-Instruct",  # 或 Qwen2.5 你确认下 huggingface 名
+    Model.deepseek: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
 }
 
 TOGETHER_MODEL_NAMES: dict[Model, str] = {
@@ -43,6 +49,8 @@ FASTCHAT_TEMPLATE_NAMES: dict[Model, str] = {
     Model.vicuna: "vicuna_v1.1",
     Model.llama_2: "llama-2-7b-chat-hf",
     Model.mixtral: "mixtral",
+    Model.qwen: "qwen-7b-chat",
+    Model.deepseek: "qwen-7b-chat",
 }
 
 API_KEY_NAMES: dict[Model, str] = {
@@ -54,6 +62,7 @@ API_KEY_NAMES: dict[Model, str] = {
     Model.vicuna:   "TOGETHER_API_KEY",
     Model.llama_2:  "TOGETHER_API_KEY",
     Model.mixtral:  "TOGETHER_API_KEY",
+
 }
 
 LITELLM_TEMPLATES: dict[Model, dict] = {
@@ -95,5 +104,25 @@ LITELLM_TEMPLATES: dict[Model, dict] = {
                 "post_message": "</s>",
                 "initial_prompt_value" : "<s>",
                 "eos_tokens": ["</s>", "[/INST]"]
+    },
+Model.qwen: {
+        "roles": {
+            "system": {"pre_message": "", "post_message": ""},
+            "user": {"pre_message": "<|user|>\n", "post_message": "<|assistant|>\n"},
+            "assistant": {"pre_message": "", "post_message": ""}
+        },
+        "post_message": "<|endoftext|>",
+        "initial_prompt_value": "",
+        "eos_tokens": ["<|endoftext|>"]
+    },
+    Model.deepseek: {
+        "roles": {
+            "system": {"pre_message": "", "post_message": ""},
+            "user": {"pre_message": "<|user|>\n", "post_message": "<|assistant|>\n"},
+            "assistant": {"pre_message": "", "post_message": ""}
+        },
+        "post_message": "<|endoftext|>",
+        "initial_prompt_value": "",
+        "eos_tokens": ["<|endoftext|>"]
     }
 }
