@@ -62,7 +62,8 @@ API_KEY_NAMES: dict[Model, str] = {
     Model.vicuna:   "TOGETHER_API_KEY",
     Model.llama_2:  "TOGETHER_API_KEY",
     Model.mixtral:  "TOGETHER_API_KEY",
-
+    Model.qwen: None,
+    Model.deepseek: None,
 }
 
 LITELLM_TEMPLATES: dict[Model, dict] = {
