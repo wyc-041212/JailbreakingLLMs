@@ -1,6 +1,7 @@
 from common import get_api_key, conv_template, extract_json
 from language_models import APILiteLLM
 from config import FASTCHAT_TEMPLATE_NAMES, Model
+import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
