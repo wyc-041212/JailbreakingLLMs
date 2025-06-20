@@ -1,0 +1,19 @@
+torch>=2.2
+transformers>=4.40
+accelerate>=0.29
+cpm_kernels
+sentencepiece
+protobuf
+peft
+einops
+
+fschat>=0.2.33  # 用于 prompt template
+tqdm
+pandas
+scikit-learn
+regex
+
+# 以下为可选，不装也无妨
+# openai
+# anthropic
+# google-generativeai
