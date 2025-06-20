@@ -22,7 +22,7 @@ def load_attack_and_target_models(args):
     return attackLM, targetLM
 
 # def load_indiv_model(model_name, local = False, use_jailbreakbench=True):
-def load_indiv_model(model_name, local = True, use_jailbreakbench=False):
+def load_indiv_model(model_name, local = False, use_jailbreakbench=False):
     if use_jailbreakbench:
         if local:
             from jailbreakbench import LLMvLLM
