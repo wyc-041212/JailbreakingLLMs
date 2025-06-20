@@ -5,7 +5,7 @@ QWEN_PATH = "/home/comp/f2256768/JBShield/models/Qwen2.5-7B-Instruct"
 DEEPSEEK_PATH = "/home/comp/f2256768/JBShield/models/DeepSeek-R1-Distill-Qwen-7B"
 
 ATTACK_TEMP = 1
-TARGET_TEMP = 0
+TARGET_TEMP = 0.7
 ATTACK_TOP_P = 0.9
 TARGET_TOP_P = 1
 
