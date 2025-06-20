@@ -213,6 +213,8 @@ class TargetLM():
         self.model = load_indiv_model(model_name, evaluate_locally, use_jailbreakbench)            
         self.category = category
 
+        self.template = FASTCHAT_TEMPLATE_NAMES[Model(model_name)]
+
     def get_response(self, prompts_list):
         if self.use_jailbreakbench:
             llm_response = self.model.query(prompts = prompts_list, 
