@@ -1,5 +1,5 @@
 from enum import Enum
-VICUNA_PATH = "/home/pchao/vicuna-13b-v1.5"
+VICUNA_PATH = "/home/comp/f2256768/JBShield/models/vicuna-13b-v1.5"
 LLAMA_PATH = "/home/pchao/Llama-2-7b-chat-hf"
 QWEN_PATH = "/home/comp/f2256768/JBShield/models/Qwen2.5-7B-Instruct"
 DEEPSEEK_PATH = "/home/comp/f2256768/JBShield/models/DeepSeek-R1-Distill-Qwen-7B"
