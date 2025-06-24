@@ -39,14 +39,17 @@ def load_indiv_model(model_name, local = True, use_jailbreakbench=False):
             # raise NotImplementedError
             # ✅ 加上这个分支：支持本地 HF 模型加载
             class LocalHFWrapper:
-                def __init__(self, model_name):
-                    from config import QWEN_PATH  # 确保你已经在 config.py 里写了这个路径
+                def __init__(self, model_path):
+                    # from config import QWEN_PATH  # 确保你已经在 config.py 里写了这个路径
                     self.model = AutoModelForCausalLM.from_pretrained(
-                        QWEN_PATH, torch_dtype=torch.float16, device_map="auto"
+                        # QWEN_PATH, torch_dtype=torch.float16, device_map="auto"
+                        model_path, torch_dtype=torch.float16, device_map="auto"
                     )
-                    self.tokenizer = AutoTokenizer.from_pretrained(QWEN_PATH, use_fast=False)
+                    # self.tokenizer = AutoTokenizer.from_pretrained(QWEN_PATH, use_fast=False)
+                    self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
                     self.post_message = "<|endoftext|>"
-                    self.use_open_source_model = False
+                    # self.use_open_source_model = False
+                    self.use_open_source_model = True
 
                 def batched_generate(self, conversations, max_n_tokens, temperature, top_p, extra_eos_tokens=[]):
                     outputs = []

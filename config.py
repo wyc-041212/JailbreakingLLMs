@@ -106,7 +106,7 @@ LITELLM_TEMPLATES: dict[Model, dict] = {
                 "initial_prompt_value" : "<s>",
                 "eos_tokens": ["</s>", "[/INST]"]
     },
-Model.qwen: {
+    Model.qwen: {
         "roles": {
             "system": {"pre_message": "", "post_message": ""},
             "user": {"pre_message": "<|user|>\n", "post_message": "<|assistant|>\n"},

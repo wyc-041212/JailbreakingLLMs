@@ -28,6 +28,11 @@ def extract_json(s):
     json_str = s[start_pos:end_pos]
     json_str = json_str.replace("\n", "")  # Remove all line breaks
 
+    print("🔍 [DEBUG] Raw attacker output:")
+    print(s)
+    print("🔍 [DEBUG] Extracted json_str:")
+    print(json_str)
+
     try:
         parsed = ast.literal_eval(json_str)
         if not all(x in parsed for x in ["improvement","prompt"]):
