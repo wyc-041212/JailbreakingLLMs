@@ -28,9 +28,9 @@ def extract_json(s):
     json_str = s[start_pos:end_pos]
     json_str = json_str.replace("\n", "")  # Remove all line breaks
 
-    print("🔍 [DEBUG] Raw attacker output:")
+    print("[DEBUG] Raw attacker output:")
     print(s)
-    print("🔍 [DEBUG] Extracted json_str:")
+    print("[DEBUG] Extracted json_str:")
     print(json_str)
 
     try:
