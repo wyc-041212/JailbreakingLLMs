@@ -141,6 +141,14 @@ class AttackLM():
         for attempt in range(self.max_n_attack_attempts):
             # Subset conversations based on indices to regenerate
             convs_subset = [openai_conv_list[i] for i in indices_to_regenerate]
+
+            # ✅ 加在这里，打印你送给模型的 prompt
+            for conv in convs_subset:
+                print("[DEBUG] Prompt sent to model:")
+                for msg in conv:
+                    print(f"{msg['role']}: {msg['content']}")
+                print("=" * 40)
+
             # Generate outputs 
             outputs_list = self.model.batched_generate(convs_subset,
                                                         max_n_tokens = self.max_n_tokens,  
