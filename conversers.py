@@ -47,7 +47,7 @@ def load_indiv_model(model_name, local = True, use_jailbreakbench=False):
                     )
                     # self.tokenizer = AutoTokenizer.from_pretrained(QWEN_PATH, use_fast=False)
                     self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
-                    self.post_message = "<|endoftext|>"
+                    self.post_message = ""
                     # self.use_open_source_model = False
                     self.use_open_source_model = True
 
@@ -116,6 +116,9 @@ class AttackLM():
             else:
                 init_message = '{"improvement": "'
         for conv, prompt in zip(convs_list, prompts_list):
+            if self.initialize_output:
+                # 添加 system 提示（必须放前面）
+                conv.append_message("system", "Please respond in JSON format with the keys 'improvement' and 'prompt'.")
             conv.append_message(conv.roles[0], prompt)
             if self.initialize_output:
                 conv.append_message(conv.roles[1], init_message)
