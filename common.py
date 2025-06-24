@@ -29,7 +29,7 @@ def extract_json(s):
     json_str = json_str.replace("\n", "")  # Remove all line breaks
 
     print("[DEBUG] Raw attacker output:")
-    print(s)
+    print(s.encode("ascii", "ignore").decode())
     print("[DEBUG] Extracted json_str:")
     print(json_str)
 
