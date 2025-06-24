@@ -18,7 +18,7 @@ def load_attack_and_target_models(args):
                         category = args.category,
                         max_n_tokens = args.target_max_n_tokens,
                         evaluate_locally = args.evaluate_locally,
-                        use_jailbreakbench=args.use_jailbreakbench,
+                        # use_jailbreakbench=args.use_jailbreakbench,
                         phase = args.jailbreakbench_phase
                         )
     
@@ -43,7 +43,7 @@ def load_indiv_model(model_name, local = True, use_jailbreakbench=False):
             # raise NotImplementedError
             # ✅ 加上这个分支：支持本地 HF 模型加载
             class LocalHFWrapper:
-                def __init__(self, model_name):
+                def __init__(self, model_path):
                     model_path = LOCAL_MODEL_PATHS[model_name]
                     # from config import QWEN_PATH  # 确保你已经在 config.py 里写了这个路径
                     self.model = AutoModelForCausalLM.from_pretrained(
@@ -52,7 +52,7 @@ def load_indiv_model(model_name, local = True, use_jailbreakbench=False):
                     )
                     # self.tokenizer = AutoTokenizer.from_pretrained(QWEN_PATH, use_fast=False)
                     self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
-                    self.tokenizer.chat_template = FASTCHAT_TEMPLATE_NAMES[Model(model_name)]
+                    self.tokenizer.chat_template = FASTCHAT_TEMPLATE_NAMES[Model(model_path)]
                     self.post_message = ""
                     # self.use_open_source_model = False
                     self.use_open_source_model = True
@@ -122,9 +122,9 @@ class AttackLM():
             else:
                 init_message = '{"improvement": "'
         for conv, prompt in zip(convs_list, prompts_list):
-            if self.initialize_output:
-                # 添加 system 提示（必须放前面）
-                conv.append_message("system", "Please respond in JSON format with the keys 'improvement' and 'prompt'.")
+            # if self.initialize_output:
+            #     # 添加 system 提示（必须放前面）
+            #     conv.append_message("system", "Please respond in JSON format with the keys 'improvement' and 'prompt'.")
             conv.append_message(conv.roles[0], prompt)
             if self.initialize_output:
                 conv.append_message(conv.roles[1], init_message)
@@ -225,7 +225,7 @@ class TargetLM():
         self.model = load_indiv_model(model_name, evaluate_locally, use_jailbreakbench)            
         self.category = category
 
-        self.template = FASTCHAT_TEMPLATE_NAMES[Model(model_name)]
+        # self.template = FASTCHAT_TEMPLATE_NAMES[Model(model_name)]
 
     def get_response(self, prompts_list):
         if self.use_jailbreakbench:
