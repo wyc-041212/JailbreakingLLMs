@@ -52,7 +52,7 @@ def load_indiv_model(model_name, local = True, use_jailbreakbench=False):
                     )
                     # self.tokenizer = AutoTokenizer.from_pretrained(QWEN_PATH, use_fast=False)
                     self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
-                    self.tokenizer.chat_template = FASTCHAT_TEMPLATE_NAMES[Model(model_path)]
+                    self.tokenizer.chat_template = FASTCHAT_TEMPLATE_NAMES[Model(model_name)]
                     self.post_message = ""
                     # self.use_open_source_model = False
                     self.use_open_source_model = True
