@@ -43,7 +43,7 @@ def load_indiv_model(model_name, local = True, use_jailbreakbench=False):
             # raise NotImplementedError
             # ✅ 加上这个分支：支持本地 HF 模型加载
             class LocalHFWrapper:
-                def __init__(self, model_path):
+                def __init__(self, model_name):
                     model_path = LOCAL_MODEL_PATHS[model_name]
                     # from config import QWEN_PATH  # 确保你已经在 config.py 里写了这个路径
                     self.model = AutoModelForCausalLM.from_pretrained(
@@ -52,7 +52,7 @@ def load_indiv_model(model_name, local = True, use_jailbreakbench=False):
                     )
                     # self.tokenizer = AutoTokenizer.from_pretrained(QWEN_PATH, use_fast=False)
                     self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
-                    self.tokenizer.chat_template = FASTCHAT_TEMPLATE_NAMES[Model(model_path)]
+                    self.tokenizer.chat_template = FASTCHAT_TEMPLATE_NAMES[Model(model_name)]
                     self.post_message = ""
                     # self.use_open_source_model = False
                     self.use_open_source_model = True
