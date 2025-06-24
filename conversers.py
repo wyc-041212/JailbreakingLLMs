@@ -143,11 +143,11 @@ class AttackLM():
             convs_subset = [openai_conv_list[i] for i in indices_to_regenerate]
 
             # ✅ 加在这里，打印你送给模型的 prompt
-            for conv in convs_subset:
-                print("[DEBUG] Prompt sent to model:")
-                for msg in conv:
-                    print(f"{msg['role']}: {msg['content']}")
-                print("=" * 40)
+            # for conv in convs_subset:
+            #     print("[DEBUG] Prompt sent to model:")
+            #     for msg in conv:
+            #         print(f"{msg['role']}: {msg['content']}")
+            #     print("=" * 40)
 
             # Generate outputs 
             outputs_list = self.model.batched_generate(convs_subset,
@@ -255,5 +255,10 @@ class TargetLM():
                                                             temperature = self.temperature,
                                                             top_p = self.top_p
                                                         )
+
+        for i, (prompt, resp) in enumerate(zip(prompts_list, responses)):
+            print(f"\n[TargetLM Response #{i}]")
+            print(f"Prompt:\n{prompt}\n")
+            print(f"Response:\n{resp}\n{'=' * 40}")
            
         return responses
