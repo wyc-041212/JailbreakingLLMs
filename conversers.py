@@ -36,10 +36,15 @@ def load_indiv_model(model_name, local = True, use_jailbreakbench=False):
             lm = LLMLiteLLM(model_name= model_name, api_key = api_key)
     else:
         if local:
+            LOCAL_MODEL_PATHS = {
+                "vicuna-13b-v1.5": "/home/comp/f2256768/JBShield/models/vicuna-13b-v1.5",
+                "qwen-2.5-7b-instruct": "/home/comp/f2256768/JBShield/models/qwen-2.5-7b-instruct"
+            }
             # raise NotImplementedError
             # ✅ 加上这个分支：支持本地 HF 模型加载
             class LocalHFWrapper:
-                def __init__(self, model_path):
+                def __init__(self, model_name):
+                    model_path = LOCAL_MODEL_PATHS[model_name]
                     # from config import QWEN_PATH  # 确保你已经在 config.py 里写了这个路径
                     self.model = AutoModelForCausalLM.from_pretrained(
                         # QWEN_PATH, torch_dtype=torch.float16, device_map="auto"
