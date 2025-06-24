@@ -31,7 +31,7 @@ def extract_json(s):
     print("[DEBUG] Raw attacker output:")
     print(s.encode("ascii", "ignore").decode())
     print("[DEBUG] Extracted json_str:")
-    print(json_str)
+    print(json_str.encode("ascii", "ignore").decode())
 
     try:
         parsed = ast.literal_eval(json_str)
