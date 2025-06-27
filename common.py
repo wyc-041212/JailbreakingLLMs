@@ -43,6 +43,7 @@ def extract_json(s):
     except (SyntaxError, ValueError):
         logger.error("Error parsing extracted structure")
         logger.error(f"Extracted:\n {json_str}")
+        logger.debug(f"Type of json_str: {type(json_str)}, start: {json_str[:200]}")
         return None, None
 
 def get_init_msg(goal, target):
