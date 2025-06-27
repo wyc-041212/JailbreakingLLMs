@@ -3,7 +3,8 @@ import litellm
 from config import TOGETHER_MODEL_NAMES, LITELLM_TEMPLATES, MODEL_NAMES, HF_MODEL_NAMES, API_KEY_NAMES, Model
 from loggers import logger
 from common import get_api_key
-from vllm import LLM, SamplingParams
+import vllm
+# from vllm import LLM, SamplingParams
 # from vllm.utils import destroy_model_parallel
 from fastchat.model import get_conversation_template
 from config import HF_MODEL_NAMES, MODEL_NAMES, Model
