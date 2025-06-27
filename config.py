@@ -27,10 +27,13 @@ MODEL_NAMES = [model.value for model in Model]
 
 HF_MODEL_NAMES: dict[Model, str] = {
     Model.llama_2: "meta-llama/Llama-2-7b-chat-hf",
-    Model.vicuna: "lmsys/vicuna-13b-v1.5",
+    # Model.vicuna: "lmsys/vicuna-13b-v1.5",
+    Model.vicuna: "/home/comp/f2256768/JBShield/models/vicuna-13b-v1.5",
     Model.mixtral: "mistralai/Mixtral-8x7B-Instruct-v0.1",
-    Model.qwen: "Qwen/Qwen2.5-7B-Instruct",
-    Model.deepseek: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+    # Model.qwen: "Qwen/Qwen2.5-7B-Instruct",
+    Model.qwen: "/home/comp/f2256768/JBShield/models/Qwen2.5-7B-Instruct",
+    # Model.deepseek: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+    Model.deepseek: "/home/comp/f2256768/JBShield/models/DeepSeek-R1-Distill-Qwen-7B"
 }
 
 TOGETHER_MODEL_NAMES: dict[Model, str] = {
