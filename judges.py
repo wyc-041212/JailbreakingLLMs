@@ -3,7 +3,7 @@ from fastchat.model import (
 )
 import re
 from system_prompts import get_judge_system_prompt
-from language_models import APILiteLLM
+from language_models import APILiteLLM, LocalvLLM
 from loggers import logger
 
 import os
