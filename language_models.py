@@ -96,7 +96,7 @@ class LocalvLLM(LanguageModel):
     def __init__(self, model_name: str):
         """Initializes the LLMHuggingFace with the specified model name."""
         super().__init__(model_name)
-        if self.model_name not in MODEL_NAMES:
+        if self.model_name.value not in MODEL_NAMES:
             raise ValueError(f"Invalid model name: {model_name}")
 
         self.hf_model_name = HF_MODEL_NAMES[Model(model_name)]
