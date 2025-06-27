@@ -4,7 +4,7 @@ from config import TOGETHER_MODEL_NAMES, LITELLM_TEMPLATES, MODEL_NAMES, HF_MODE
 from loggers import logger
 from common import get_api_key
 from vllm import LLM, SamplingParams
-from vllm.utils import destroy_model_parallel
+# from vllm.utils import destroy_model_parallel
 from fastchat.model import get_conversation_template
 from config import HF_MODEL_NAMES, MODEL_NAMES, Model
 
@@ -100,7 +100,7 @@ class LocalvLLM(LanguageModel):
             raise ValueError(f"Invalid model name: {model_name}")
 
         self.hf_model_name = HF_MODEL_NAMES[Model(model_name)]
-        destroy_model_parallel()
+        # destroy_model_parallel()
         self.model = vllm.LLM(model=self.hf_model_name)
 
         if self.temperature > 0:
