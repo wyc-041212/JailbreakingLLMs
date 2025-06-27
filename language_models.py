@@ -104,12 +104,12 @@ class LocalvLLM(LanguageModel):
         # destroy_model_parallel()
         self.model = vllm.LLM(model=self.hf_model_name)
 
-        if self.temperature > 0:
-            self.sampling_params = vllm.SamplingParams(
-                temperature=self.temperature, top_p=self.top_p, max_tokens=self.max_n_tokens
-            )
-        else:
-            self.sampling_params = vllm.SamplingParams(temperature=0, max_tokens=self.max_n_tokens)
+        # if self.temperature > 0:
+        #     self.sampling_params = vllm.SamplingParams(
+        #         temperature=self.temperature, top_p=self.top_p, max_tokens=self.max_n_tokens
+        #     )
+        # else:
+        #     self.sampling_params = vllm.SamplingParams(temperature=0, max_tokens=self.max_n_tokens)
 
     def batched_generate(self, convs_list: list[list[dict]],
                          max_n_tokens: int,
