@@ -103,6 +103,7 @@ class LocalvLLM(LanguageModel):
         self.hf_model_name = HF_MODEL_NAMES[Model(model_name)]
         # destroy_model_parallel()
         self.model = vllm.LLM(model=self.hf_model_name)
+        self.use_open_source_model = True
 
         # if self.temperature > 0:
         #     self.sampling_params = vllm.SamplingParams(
